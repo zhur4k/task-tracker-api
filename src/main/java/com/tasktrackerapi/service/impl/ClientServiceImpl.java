@@ -41,6 +41,7 @@ public class ClientServiceImpl implements ClientService {
         user.setUsername(clientRegisterDTO.username());
         user.setPassword(passwordEncoder.encode(clientRegisterDTO.password()));
         user.setClient(client);
+        user.setIsEnabled(true);
         user.setRoles(Set.of(clientRegisterDTO.role() == null ? Role.USER : clientRegisterDTO.role()));
         userRepository.save(user);
     }
