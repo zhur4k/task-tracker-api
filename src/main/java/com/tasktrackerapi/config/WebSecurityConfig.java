@@ -24,7 +24,10 @@ public class WebSecurityConfig {
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception{
         return http
                 .authorizeHttpRequests(request ->
-                        request.requestMatchers("/").permitAll()
+                        request
+                                .requestMatchers("/").permitAll()
+                                .requestMatchers("/api/auth/**").permitAll()
+                                .requestMatchers("/swagger-ui/**", "/v3/api-docs/**", "/swagger-ui.html").permitAll()
                                 .anyRequest().authenticated()
                 )
                 .formLogin(form -> form
