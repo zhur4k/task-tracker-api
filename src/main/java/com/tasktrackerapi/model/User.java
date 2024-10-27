@@ -25,6 +25,10 @@ public class User implements UserDetails {
 
     Boolean isEnabled;
 
+    @OneToOne(fetch = FetchType.EAGER)
+    @JoinColumn(name = "client_id")
+    private Client client;
+
     @ElementCollection(targetClass = Role.class, fetch = FetchType.EAGER)
     @CollectionTable(name = "t_user_role",joinColumns = @JoinColumn(name = "user_id"))
     @Enumerated(EnumType.STRING)
