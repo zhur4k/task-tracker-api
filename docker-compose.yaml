@@ -1,0 +1,26 @@
+services:
+  task_tracker_postgres_db:
+    image: postgres:17
+    environment:
+      - POSTGRES_DB=task_tracker_db
+      - POSTGRES_PASSWORD=password
+      - POSTGRES_USER=username
+    ports:
+      - 5432:5432
+    networks:
+      - app_network
+  task_tracker_api:
+    build: .
+    environment:
+      - DB_URL=jdbc:postgresql://host.docker.internal:5432/task_tracker_db
+      - DB_PASSWORD=password
+      - DB_USERNAME=username
+    ports:
+      - 8080:8080
+    depends_on:
+      - task_tracker_postgres_db
+    networks:
+      - app_network
+networks:
+  app_network:
+    driver: bridge
