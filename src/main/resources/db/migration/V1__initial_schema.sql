@@ -17,3 +17,17 @@ CREATE TABLE t_user_role(
     roles VARCHAR(100) NOT NULL,
     PRIMARY KEY (user_id, roles)
 );
+
+CREATE TABLE t_project(
+    id BIGSERIAL PRIMARY KEY,
+    name VARCHAR(50) NOT NULL
+);
+
+CREATE TABLE t_record (
+    id BIGSERIAL PRIMARY KEY,
+    start_time TIMESTAMP NOT NULL,
+    description VARCHAR(50) NOT NULL,
+    end_time TIMESTAMP NOT NULL,
+    project_id BIGINT REFERENCES t_project(id) ON DELETE SET NULL,
+    client_id BIGINT REFERENCES t_client(id) ON DELETE CASCADE
+);
