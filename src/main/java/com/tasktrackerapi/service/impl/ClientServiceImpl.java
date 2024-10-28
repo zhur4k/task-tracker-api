@@ -1,6 +1,7 @@
 package com.tasktrackerapi.service.impl;
 
 import com.tasktrackerapi.dto.ClientRegisterDTO;
+import com.tasktrackerapi.dto.ClientUpdateDTO;
 import com.tasktrackerapi.model.Client;
 import com.tasktrackerapi.model.Role;
 import com.tasktrackerapi.model.User;
@@ -44,5 +45,13 @@ public class ClientServiceImpl implements ClientService {
         user.setIsEnabled(true);
         user.setRoles(Set.of(clientRegisterDTO.role() == null ? Role.USER : clientRegisterDTO.role()));
         userRepository.save(user);
+    }
+
+    @Override
+    public void updateClient(ClientUpdateDTO clientUpdateDTO, Client client) {
+        client.setFirstName(clientUpdateDTO.firstName());
+        client.setLastName(client.getLastName());
+
+        clientRepository.save(client);
     }
 }

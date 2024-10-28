@@ -1,6 +1,8 @@
 package com.tasktrackerapi.controller;
 
 import com.tasktrackerapi.dto.ClientRegisterDTO;
+import com.tasktrackerapi.dto.ClientUpdateDTO;
+import com.tasktrackerapi.model.User;
 import com.tasktrackerapi.service.ClientService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.media.Content;
@@ -9,6 +11,7 @@ import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -33,5 +36,19 @@ public class AuthController {
     public ResponseEntity<String> registerClient(@RequestBody ClientRegisterDTO clientRegisterDTO) {
         clientService.registerClient(clientRegisterDTO);
         return ResponseEntity.ok("Client registered successfully");
+    }
+
+    @Operation(summary = "Update client", description = "Update client by providing the necessary details.")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "200", description = "Client updated successfully"),
+            @ApiResponse(responseCode = "409", description = "Client with this login don't exist",
+                    content = @Content(schema = @Schema(implementation = String.class))),
+            @ApiResponse(responseCode = "500", description = "Internal server error",
+                    content = @Content(schema = @Schema(implementation = String.class)))
+    })
+    @PostMapping("/update")
+    public ResponseEntity<String> updateClient(@RequestBody ClientUpdateDTO clientUpdateDTO, @AuthenticationPrincipal User user) {
+        clientService.updateClient(clientUpdateDTO, user.getClient());
+        return ResponseEntity.ok("Client update successfully");
     }
 }
