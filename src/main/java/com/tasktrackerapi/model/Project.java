@@ -10,17 +10,14 @@ import java.util.List;
 @Entity
 @Getter
 @Setter
-@Table(name = "t_client")
-public class Client {
-
+@Table(name = "t_projet")
+public class Project {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    private String firstName;
+    private String name;
 
-    private String lastName;
-
-    @OneToMany(fetch = FetchType.LAZY, mappedBy = "client")
-    private List<Record> records = new ArrayList<>();
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "project")
+    private List<Record> record = new ArrayList<>();
 }

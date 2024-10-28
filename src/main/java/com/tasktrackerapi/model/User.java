@@ -17,13 +17,13 @@ import java.util.Set;
 public class User implements UserDetails {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    Long id;
+    private Long id;
 
-    String username;
+    private String username;
 
-    String password;
+    private String password;
 
-    Boolean isEnabled;
+    private Boolean isEnabled;
 
     @OneToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "client_id")
