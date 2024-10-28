@@ -1,6 +1,6 @@
 package com.tasktrackerapi.dto;
 
-public record ProjectAddDTO(
+public record ProjectGetDTO(
 
         String name
 ) {

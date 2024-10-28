@@ -15,6 +15,8 @@ public class Record {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    private String description;
+
     private LocalDateTime startTime;
 
     private LocalDateTime endTime;
